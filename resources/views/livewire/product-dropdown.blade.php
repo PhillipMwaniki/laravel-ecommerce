@@ -8,7 +8,7 @@
 
         @foreach($variations as $variation)
             <option value="{{ $variation->id }}">
-                {{ $variation->title }}
+                {{ $variation->title }} ({{ $variation->stocks->sum('amount') }})
             </option>
         @endforeach
     </x-select>

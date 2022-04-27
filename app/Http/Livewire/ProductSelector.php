@@ -31,6 +31,11 @@ class ProductSelector extends Component
         $this->skuVariant = Variation::find($variantId);
     }
 
+    public function addToCart()
+    {
+
+    }
+
     public function render()
     {
         return view('livewire.product-selector');
