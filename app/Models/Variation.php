@@ -19,6 +19,26 @@ class Variation extends Model
         return money($this->price);
     }
 
+    public function inStock(): bool
+    {
+        return $this->stockCount() > 0;
+    }
+
+    public function outOfStock(): bool
+    {
+        return !$this->inStock();
+    }
+
+    public function stockCount()
+    {
+        return $this->descendantsAndSelf->sum(fn ($variation) => $variation->stocks->sum('amount'));
+    }
+
+    public function lowStock(): bool
+    {
+        return !$this->outOfStock() && $this->stockCount() >= 5;
+    }
+
     public function product(): BelongsTo
     {
         return $this->belongsTo(Product::class);
